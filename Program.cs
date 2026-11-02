@@ -52,4 +52,49 @@ foreach (int number in numbers)
     Console.WriteLine($"{number}: {IsPrime(number)}");
 }
 
-// Достаточно проверять делители, до квадратного корня числа, т.к больший делитель обязательно имеет парный меньший делитель
+// Достаточно проверять делители, до квадратного корня числа,
+// т.к больший делитель обязательно имеет парный меньший делитель
+
+
+// Part 3
+int[] values = { 5, 2, 5, 3, 2, 5, 4, 3, 3 };
+
+Dictionary<int, int> counts = new Dictionary<int, int>();
+
+foreach (int number in values)
+{
+    if (counts.ContainsKey(number))
+        counts[number]++;
+    else
+        counts[number] = 1;
+}
+
+foreach (var pair in counts)
+{
+    Console.WriteLine($"{pair.Key} -> {pair.Value}");
+}
+
+// Один раз просматриваю массив, это банально эффективнее и меньше ресурсов забирает
+
+// Part 4
+int calls = 0;
+
+int Fibonacci(int n)
+{
+    calls++;
+
+    if (n <= 1)
+        return n;
+
+    return Fibonacci(n - 1) + Fibonacci(n - 2);
+}
+
+Console.WriteLine($"Fibonacci(10) = {Fibonacci(10)}");
+Console.WriteLine($"Вызовов: {calls}");
+
+calls = 0;
+
+Console.WriteLine($"Fibonacci(20) = {Fibonacci(20)}");
+Console.WriteLine($"Вызовов: {calls}");
+
+// Рекурсивный алгоритм повторно вычисляет одинаковые значения, из-за чего кол-во вызовов кратно увеличивается
