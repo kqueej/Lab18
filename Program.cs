@@ -101,53 +101,169 @@
 
 
 // Final task
-int[] values = { 12, 15, 12, 7, 19, 15, 12, 8, 7, 19 };
+// int[] values = { 12, 15, 12, 7, 19, 15, 12, 8, 7, 19 };
 
-int FindMin(int[] numbers)
+// int FindMin(int[] numbers)
+// {
+//     int min = numbers[0];
+
+//     foreach (int number in numbers)
+//     {
+//         if (number < min)
+//             min = number;
+//     }
+
+//     return min;
+// }
+
+// int FindMax(int[] numbers)
+// {
+//     int max = numbers[0];
+
+//     foreach (int number in numbers)
+//     {
+//         if (number > max)
+//             max = number;
+//     }
+
+//     return max;
+// }
+
+// int Gcd(int a, int b)
+// {
+//     while (b != 0)
+//     {
+//         int temp = b;
+//         b = a % b;
+//         a = temp;
+//     }
+
+//     return a;
+// }
+
+// bool IsPrime(int number)
+// {
+//     if (number < 2)
+//         return false;
+
+//     for (int i = 2; i * i <= number; i++)
+//     {
+//         if (number % i == 0)
+//             return false;
+//     }
+
+//     return true;
+// }
+
+// Dictionary<int, int> CountFrequencies(int[] numbers)
+// {
+//     Dictionary<int, int> counts = new Dictionary<int, int>();
+
+//     foreach (int number in numbers)
+//     {
+//         if (counts.ContainsKey(number))
+//             counts[number]++;
+//         else
+//             counts[number] = 1;
+//     }
+
+//     return counts;
+// }
+
+// int min = FindMin(values);
+// int max = FindMax(values);
+
+// Dictionary<int, int> frequencies = CountFrequencies(values);
+
+// Console.WriteLine(string.Join(" ", values));
+
+// Console.WriteLine($"min: {min}");
+// Console.WriteLine($"max: {max}");
+
+// Console.WriteLine($"Count: {frequencies.Count}");
+
+// Console.WriteLine("freq:");
+
+// List<int> keys = new List<int>(frequencies.Keys);
+// keys.Sort();
+
+// foreach (int key in keys)
+// {
+//     Console.WriteLine($"{key} -> {frequencies[key]}");
+// }
+
+// Console.WriteLine($"GCD({min}, {max}): {Gcd(min, max)}");
+
+// Console.WriteLine($"{min} - {(IsPrime(min) ? "prime" : "composite")} number");
+// Console.WriteLine($"{max} - {(IsPrime(max) ? "prime" : "composite")} number");
+
+// Self 1
+// int Gcd(int a, int b)
+// {
+//     while (b != 0)
+//     {
+//         int temp = b;
+//         b = a % b;
+//         a = temp;
+//     }
+
+//     return a;
+// }
+
+// int[] numbers = { 24, 36, 60, 84 };
+
+// int result = 0;
+// for (int i = 0; i < numbers.Length; i++)
+// {
+//     result = Gcd(result, numbers[i]);
+// }
+// Console.WriteLine($"GCD: {result}");
+
+
+// Self 2
+// int FindMostFrequent(int[] values)
+// {
+//     Dictionary<int, int> counts = new Dictionary<int, int>();
+
+//     foreach (int number in values)
+//     {
+//         if (counts.ContainsKey(number))
+//             counts[number]++;
+//         else
+//             counts[number] = 1;
+//     }
+
+//     int mostFrequent = 0;
+//     int maxCount = 0;
+
+//     foreach (var pair in counts)
+//     {
+//         if (pair.Value > maxCount)
+//         {
+//             maxCount = pair.Value;
+//             mostFrequent = pair.Key;
+//         }
+//     }
+
+//     return mostFrequent;
+// }
+
+// int[] numbers = { 12, 15, 12, 7, 19, 15, 12, 8, 7, 19 };
+
+// Console.WriteLine($"Most freq: {FindMostFrequent(numbers)}");
+
+// Self 3
+bool IsPrimeNaive(int number, out int checks)
 {
-    int min = numbers[0];
+    checks = 0;
 
-    foreach (int number in numbers)
-    {
-        if (number < min)
-            min = number;
-    }
-
-    return min;
-}
-
-int FindMax(int[] numbers)
-{
-    int max = numbers[0];
-
-    foreach (int number in numbers)
-    {
-        if (number > max)
-            max = number;
-    }
-
-    return max;
-}
-
-int Gcd(int a, int b)
-{
-    while (b != 0)
-    {
-        int temp = b;
-        b = a % b;
-        a = temp;
-    }
-
-    return a;
-}
-
-bool IsPrime(int number)
-{
     if (number < 2)
         return false;
 
-    for (int i = 2; i * i <= number; i++)
+    for (int i = 2; i < number; i++)
     {
+        checks++;
+
         if (number % i == 0)
             return false;
     }
@@ -155,44 +271,33 @@ bool IsPrime(int number)
     return true;
 }
 
-Dictionary<int, int> CountFrequencies(int[] numbers)
+bool IsPrimeOptimized(int number, out int checks)
 {
-    Dictionary<int, int> counts = new Dictionary<int, int>();
+    checks = 0;
 
-    foreach (int number in numbers)
+    if (number < 2)
+        return false;
+
+    for (int i = 2; i * i <= number; i++)
     {
-        if (counts.ContainsKey(number))
-            counts[number]++;
-        else
-            counts[number] = 1;
+        checks++;
+
+        if (number % i == 0)
+            return false;
     }
 
-    return counts;
+    return true;
 }
 
-int min = FindMin(values);
-int max = FindMax(values);
+int[] numbers = { 97, 997, 999983, 1000000 };
 
-Dictionary<int, int> frequencies = CountFrequencies(values);
-
-Console.WriteLine(string.Join(" ", values));
-
-Console.WriteLine($"min: {min}");
-Console.WriteLine($"max: {max}");
-
-Console.WriteLine($"Count: {frequencies.Count}");
-
-Console.WriteLine("freq:");
-
-List<int> keys = new List<int>(frequencies.Keys);
-keys.Sort();
-
-foreach (int key in keys)
+foreach (int number in numbers)
 {
-    Console.WriteLine($"{key} -> {frequencies[key]}");
+    IsPrimeNaive(number, out int naive);
+    IsPrimeOptimized(number, out int optimized);
+
+    Console.WriteLine($"number: {number} count: {naive} optm: {optimized}");
 }
 
-Console.WriteLine($"GCD({min}, {max}): {Gcd(min, max)}");
-
-Console.WriteLine($"{min} - {(IsPrime(min) ? "prime" : "composite")} number");
-Console.WriteLine($"{max} - {(IsPrime(max) ? "prime" : "composite")} number");
+// на простых числах разница самая большая
+// на составных разница небольшая, т.к оба алгоритма могу найти делитель и завершить проверку
